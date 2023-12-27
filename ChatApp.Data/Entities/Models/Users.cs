@@ -32,7 +32,9 @@ namespace ChatApp.Data.Entities.Models
 
         public bool isLogged { get; set; }
 
-        public ICollection<PrivateMessages> PrivateMessages { get; set; } = new List<PrivateMessages>();
+        public ICollection<PrivateMessages> PrivateMessagesSent { get; set; } = new List<PrivateMessages>();
+
+        public ICollection<PrivateMessages> PrivateMessagesReceived { get; set; } = new List<PrivateMessages>();
 
         public ICollection<GroupUsers> GroupUsers { get; set; } = new List<GroupUsers>();
 

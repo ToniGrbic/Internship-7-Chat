@@ -7,7 +7,7 @@ namespace ChatApp.Data.Entities.Models
 {
     public class GroupUsers
     {
-        public int Id { get; set; }
+        public int GroupId { get; set; }
 
         public Groups Group { get; set; } = null!;
 

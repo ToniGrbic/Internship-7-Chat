@@ -19,11 +19,11 @@ namespace ChatApp.Data.Entities.Models
 
         public int SenderUserID { get; set; }
 
-        //public Users SenderUser { get; set; } = null!;
+        public Users SenderUser { get; set; } = null!;
 
         public int ReceiverUserID { get; set; }
 
-        //public Users ReceiverUser { get; set; } = null!;
+        public Users ReceiverUser { get; set; } = null!;
 
         public string MessageText { get; set; }
 

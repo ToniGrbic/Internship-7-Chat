@@ -20,6 +20,41 @@ public class ChatAppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //GroupUsers -> many to many
+        modelBuilder.Entity<GroupUsers>()
+            .HasKey(gu => new { gu.GroupId, gu.UserId });
+        
+        modelBuilder.Entity<GroupUsers>()
+            .HasOne(gu => gu.Group)
+            .WithMany(g => g.GroupUsers)
+            .HasForeignKey(gu => gu.GroupId);
+        
+        modelBuilder.Entity<GroupUsers>()
+            .HasOne(gu => gu.User)
+            .WithMany(u => u.GroupUsers)
+            .HasForeignKey(gu => gu.UserId);
+        
+        //GroupMessages -> many to many
+        modelBuilder.Entity<GroupMessages>()
+            .HasOne(gm => gm.Group)
+            .WithMany(g => g.GroupMessages)
+            .HasForeignKey(gm => gm.GroupID);
+
+        modelBuilder.Entity<GroupMessages>()
+            .HasOne(gm => gm.SenderUser)
+            .WithMany(u => u.GroupMessages)
+            .HasForeignKey(gm => gm.SenderUserID);
+
+        //PrivateMessages - Users -> many to one
+        modelBuilder.Entity<PrivateMessages>()
+            .HasOne(pm => pm.SenderUser)
+            .WithMany(u => u.PrivateMessagesSent)
+            .HasForeignKey(pm => pm.SenderUserID);
+
+        modelBuilder.Entity<PrivateMessages>()
+            .HasOne(pm => pm.ReceiverUser)
+            .WithMany(u => u.PrivateMessagesReceived)
+            .HasForeignKey(pm => pm.ReceiverUserID);
 
         //DatabaseSeeder.Seed(modelBuilder);
         base.OnModelCreating(modelBuilder);
