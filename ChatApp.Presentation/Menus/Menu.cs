@@ -4,22 +4,23 @@ public class Menu
         private List<(string, Action)> Options;
         private int SelectedOption = 0;
         private string MenuName;
+
         public Menu(string menuName, List<(string, Action)> options)
         {
             MenuName = menuName;
             Options = options;
         }
+
     	public void Start()
         {
             PrintMenu(Options, SelectedOption, MenuName);
             while(true){
-                SelectedOption = GetInputAndSetCurrentOptionIndex(Options);
+                SelectedOption = GetInputKeyAndSetCurrentOption(Options);
                 PrintMenu(Options, SelectedOption, MenuName);
             }
         }
         public void PrintMenu(List<(string, Action)> options, int selectedOption, string MenuName)
         {
-            
             Console.Clear();
             Console.WriteLine(
                 $"ChatApp - {MenuName}\n" +
@@ -39,7 +40,7 @@ public class Menu
             }
         }
 
-        public int GetInputAndSetCurrentOptionIndex(List<(string, Action)> options)
+        public int GetInputKeyAndSetCurrentOption(List<(string, Action)> options)
         {
             var key = Console.ReadKey(true);
 
