@@ -17,9 +17,11 @@ public class ChatAppDbContext : DbContext
     public DbSet<GroupUsers> GroupUsers => Set<GroupUsers>();
     public DbSet<GroupMessages> GroupMessages => Set<GroupMessages>();
     public DbSet<PrivateMessages> PrivateMesseges => Set<PrivateMessages>();
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+         modelBuilder.Entity<Users>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
         //GroupUsers -> many to many
         modelBuilder.Entity<GroupUsers>()
             .HasKey(gu => new { gu.GroupId, gu.UserId });
@@ -55,6 +57,7 @@ public class ChatAppDbContext : DbContext
             .HasOne(pm => pm.ReceiverUser)
             .WithMany(u => u.PrivateMessagesReceived)
             .HasForeignKey(pm => pm.ReceiverUserID);
+
 
         //DatabaseSeeder.Seed(modelBuilder);
         base.OnModelCreating(modelBuilder);
