@@ -6,7 +6,7 @@ namespace ChatApp.Domain.Factories;
 
 public static class DbContextFactory
 {
-    public static ChatAppDbContext GetTodoAppDbContext()
+    public static ChatAppDbContext GetChatAppDbContext()
     {
         var options = new DbContextOptionsBuilder()
             .UseNpgsql(ConfigurationManager.ConnectionStrings["ChatApp"].ConnectionString)
