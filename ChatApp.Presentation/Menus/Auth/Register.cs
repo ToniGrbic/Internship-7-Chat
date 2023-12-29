@@ -1,30 +1,35 @@
 namespace ChatApp.Presentation.Menus;
+using ChatApp.Data.Entities.Models;
 using ChatApp.Presentation.Helpers;
+using ChatApp.Domain.Repositories;
+using ChatApp.Presentation.Actions.UserActions;
     public class Register
     {
         private string Email { get; set; }
         private string UserName { get; set; }
         private string Password { get; set; }
         private string ConfirmPassword { get; set; }
-        private string Captcha { get; set; }
-        private bool isSuccess;
+        private bool IsSuccess;
         public Register()
         {
             do{
                 Console.Clear();
                 Email = Reader.ReadEmail("Email: ");
+                //TODO: check if email is already in database
                 UserName = Reader.ReadInput("Username: ");
                 do{
                     Password = Reader.ReadInput("Password: ");
                     ConfirmPassword = Reader.ReadInput("Confirm Password: ");
-                    isSuccess = ConfirmUserPassword(Password, ConfirmPassword);
-                } while(!isSuccess);
+                    IsSuccess = ConfirmUserPassword(Password, ConfirmPassword);
+                } while(!IsSuccess);
 
-                 isSuccess = CreateAndConfirmCaptchaString();
+                IsSuccess = CreateAndConfirmCaptchaString();
+                UserActions.AddUser(Email, UserName, Password);
 
-                //TODO: check if that user already is in database, if not create new user
                 Reader.ReadKeyToContinue();
-            } while(!isSuccess);
+            } while(!IsSuccess);
+            
+
         }
 
         public bool ConfirmUserPassword(string password, string confirmPassword)
@@ -62,10 +67,10 @@ using ChatApp.Presentation.Helpers;
             bool isSuccess;
             do{
                 Console.Clear();
-                Captcha = CreateRandomCaptchaString(5);
-                Console.WriteLine($"Captcha: {Captcha}");
+                var captcha = CreateRandomCaptchaString(5);
+                Console.WriteLine($"Captcha: {captcha}");
                 var input = Reader.ReadInput("Confirm Captcha: ");
-                isSuccess = input == Captcha;
+                isSuccess = input == captcha;
                 if(isSuccess) 
                     Console.WriteLine("\nInputed captcha is correct!");
                 else
