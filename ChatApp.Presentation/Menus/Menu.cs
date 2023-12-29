@@ -13,13 +13,13 @@ public class Menu
 
     	public void Start()
         {
-            PrintMenu(Options, SelectedOption, MenuName);
+            PrintMenu();
             while(true){
-                SelectedOption = GetInputKeyAndSetCurrentOption(Options);
-                PrintMenu(Options, SelectedOption, MenuName);
+                SelectedOption = GetInputKeyAndSetCurrentOption();
+                PrintMenu();
             }
         }
-        public void PrintMenu(List<(string, Action)> options, int selectedOption, string MenuName)
+        public void PrintMenu()
         {
             Console.Clear();
             Console.WriteLine(
@@ -27,39 +27,39 @@ public class Menu
                 "--------------------\n"
             );
             
-            for(int i = 0; i < options.Count; ++i)
+            for(int i = 0; i < Options.Count; ++i)
             {
-                if(selectedOption == i){
+                if(SelectedOption == i){
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.White;
-                    Console.WriteLine($"--> {i + 1}. {options[i].Item1}");
+                    Console.WriteLine($"--> {i + 1}. {Options[i].Item1}");
                     Console.ResetColor();
                 }
                 else
-                    Console.WriteLine($"    {i + 1}. {options[i].Item1}");
+                    Console.WriteLine($"    {i + 1}. {Options[i].Item1}");
             }
         }
 
-        public int GetInputKeyAndSetCurrentOption(List<(string, Action)> options)
+        public int GetInputKeyAndSetCurrentOption()
         {
             var key = Console.ReadKey(true);
 
             if(key.Key == ConsoleKey.UpArrow)
             {
                 if(SelectedOption == 0)
-                    SelectedOption = options.Count - 1;
+                    SelectedOption = Options.Count - 1;
                 else
                     SelectedOption--;
             }
             else if(key.Key == ConsoleKey.DownArrow)
             {
-                if(SelectedOption == options.Count - 1)
+                if(SelectedOption == Options.Count - 1)
                     SelectedOption = 0;
                 else
                     SelectedOption++;
             }
             else if(key.Key == ConsoleKey.Enter)
-                options[SelectedOption].Item2.Invoke();
+                Options[SelectedOption].Item2.Invoke();
 
             return SelectedOption;
         }
