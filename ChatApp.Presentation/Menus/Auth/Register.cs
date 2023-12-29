@@ -59,12 +59,13 @@ using ChatApp.Presentation.Helpers;
         }
         public bool CreateAndConfirmCaptchaString()
         {
+            bool isSuccess;
             do{
                 Console.Clear();
                 Captcha = CreateRandomCaptchaString(5);
                 Console.WriteLine($"Captcha: {Captcha}");
                 var input = Reader.ReadInput("Confirm Captcha: ");
-                bool isSuccess = input == Captcha;
+                isSuccess = input == Captcha;
                 if(isSuccess) 
                     Console.WriteLine("\nInputed captcha is correct!");
                 else
