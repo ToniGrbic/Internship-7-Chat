@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp.Presentation", "Internship-7-Chat\ChatApp.Presentation.csproj", "{B72C0163-2A49-4EAC-93F2-45F3902A883F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp.Presentation", "ChatApp.Presentation\ChatApp.Presentation.csproj", "{B72C0163-2A49-4EAC-93F2-45F3902A883F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.Data", "ChatApp.Data\ChatApp.Data.csproj", "{09D66221-A84B-4ED0-8681-22420D4C8348}"
 EndProject

@@ -64,7 +64,7 @@ public class ChatAppDbContext : DbContext
     }
 }
 
-public class TodoAppDbContextFactory : IDesignTimeDbContextFactory<ChatAppDbContext>
+public class ChatAppDbContextFactory : IDesignTimeDbContextFactory<ChatAppDbContext>
 {
     public ChatAppDbContext CreateDbContext(string[] args)
     {
