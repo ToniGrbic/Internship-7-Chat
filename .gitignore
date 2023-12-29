@@ -364,6 +364,7 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
+*.json
 
 # Visual Studio History (VSHistory) files
 .vshistory/
