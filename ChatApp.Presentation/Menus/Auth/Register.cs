@@ -2,6 +2,7 @@ namespace ChatApp.Presentation.Menus;
 using ChatApp.Data.Entities.Models;
 using ChatApp.Presentation.Helpers;
 using ChatApp.Domain.Repositories;
+using ChatApp.Domain.Enums;
 using ChatApp.Presentation.Actions.UserActions;
     public class Register
     {
@@ -9,38 +10,35 @@ using ChatApp.Presentation.Actions.UserActions;
         private string UserName { get; set; }
         private string Password { get; set; }
         private string ConfirmPassword { get; set; }
+
         private bool IsSuccess;
         public Register()
         {
+            Console.Clear();
+            Console.WriteLine("Register:\n");
             do{
-                Console.Clear();
                 Email = Reader.ReadEmail("Email: ");
-                //TODO: check if email is already in database
-                UserName = Reader.ReadInput("Username: ");
-                do{
-                    Password = Reader.ReadInput("Password: ");
-                    ConfirmPassword = Reader.ReadInput("Confirm Password: ");
-                    IsSuccess = ConfirmUserPassword(Password, ConfirmPassword);
-                } while(!IsSuccess);
-
-                IsSuccess = CreateAndConfirmCaptchaString();
-                UserActions.AddUser(Email, UserName, Password);
-
-                Reader.ReadKeyToContinue();
-            } while(!IsSuccess);
+            }while(UserActions.GetUserByEmailForRegister(Email) is not null);
             
+            UserName = Reader.ReadInput("Username: ");
+            do{
+               Password = Reader.ReadInput("Password: ");
+               ConfirmPassword = Reader.ReadInput("Confirm Password: ");
+               ConfirmUserPassword(Password, ConfirmPassword);
+            } while(!IsSuccess);
 
+            CreateAndConfirmCaptchaString();
+            UserActions.RegisterUser(Email, UserName, Password);
         }
 
-        public bool ConfirmUserPassword(string password, string confirmPassword)
+        public void ConfirmUserPassword(string password, string confirmPassword)
         {
-            bool isSuccess = password == confirmPassword;
-            if(isSuccess) 
+            IsSuccess = password == confirmPassword;
+            if(IsSuccess) 
                 Console.WriteLine("\nPasswords match!");
             else
                 Console.WriteLine("\nPasswords do not match!");
             Reader.ReadKeyToContinue();
-            return isSuccess;
         }
 
         public string CreateRandomCaptchaString(int length)
@@ -62,21 +60,20 @@ using ChatApp.Presentation.Actions.UserActions;
 
             return randomString;
         }
-        public bool CreateAndConfirmCaptchaString()
+        public void CreateAndConfirmCaptchaString()
         {
-            bool isSuccess;
             do{
                 Console.Clear();
                 var captcha = CreateRandomCaptchaString(5);
                 Console.WriteLine($"Captcha: {captcha}");
+
                 var input = Reader.ReadInput("Confirm Captcha: ");
-                isSuccess = input == captcha;
-                if(isSuccess) 
+                IsSuccess = input == captcha;
+                if(IsSuccess) 
                     Console.WriteLine("\nInputed captcha is correct!");
                 else
                     Console.WriteLine("\nInputed captcha does not match!, try again.");
                 Reader.ReadKeyToContinue();
-            } while(!isSuccess);
-            return isSuccess;
+            } while(!IsSuccess);
         }
     }
