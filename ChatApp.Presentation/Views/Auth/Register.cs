@@ -1,8 +1,5 @@
-namespace ChatApp.Presentation.Menus;
-using ChatApp.Data.Entities.Models;
+namespace ChatApp.Presentation.Views.Auth;
 using ChatApp.Presentation.Helpers;
-using ChatApp.Domain.Repositories;
-using ChatApp.Domain.Enums;
 using ChatApp.Presentation.Actions.UserActions;
     public class Register
     {

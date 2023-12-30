@@ -1,8 +1,9 @@
 
-namespace ChatApp.Presentation.Menus;
+namespace ChatApp.Presentation.Views.Auth;
 
 using ChatApp.Presentation.Actions.UserActions;
 using ChatApp.Presentation.Helpers;
+using ChatApp.Presentation.Views.Menus;
 using ChatApp.Data.Entities.Models;
 
 public class Login
@@ -28,17 +29,31 @@ public class Login
             }
                 
             IsSuccess = ValidateUserPassword(user, Password);
-            Reader.ReadKeyToContinue();
+            if (!IsSuccess)
+            {
+                Reader.ReadKeyToContinue();
+                continue;
+            }
+            
+            var menuOptions = new MenuOptions(user);
+            var groupChatOptions = menuOptions.GroupChatOptions();
+            var privateMessageOptions = menuOptions.PrivateMessageOptions();
+            var userSettings = menuOptions.UserSettings();
 
             var appActions = new List<(string, Action)>()
             {
-                ("Join Group", () => Console.WriteLine("TODO")),
-                ("Send Private Message", () => Console.WriteLine("TODO")),
-                ("Enter Group Chat", () => Console.WriteLine("TODO")), 
-                ("Create Group", () => Console.WriteLine("TODO")),
-                ("Settings", () => Console.WriteLine("TODO")),
-                ("Logout", () => LogoutUser(user))
+                ("Group chats",
+                 () => new Menu("Group chats", groupChatOptions).Start()),
+                ("Private Messages", 
+                 () => new Menu("Private messages", privateMessageOptions).Start()),
+                ("Settings", 
+                 () => new Menu("Settings", userSettings).Start()),
+                ("Logout", 
+                 () => LogoutUser(user))
             };
+
+            if (user.IsAdmin)
+                appActions.Insert(0, ("User managment", () => Console.WriteLine("TODO")));
 
             var userMenu = new Menu($"User menu - {user.UserName}", appActions);
             userMenu.Start();
