@@ -1,34 +1,49 @@
 
 namespace ChatApp.Presentation.Menus;
+
+using ChatApp.Presentation.Actions.UserActions;
 using ChatApp.Presentation.Helpers;
+using ChatApp.Data.Entities.Models;
 
 public class Login
 {
     private string Email { get; set; }
     private string Password { get; set; }
-    private bool isSuccess;
+    private bool IsSuccess = false;
 
     public Login()
     {
         do{
             Console.Clear();
+            Console.WriteLine("Login:\n");
             Email = Reader.ReadEmail("Email: ");
             Password = Reader.ReadInput("Password: ");
 
-            isSuccess = ValidateUserPassword(Email, Password);
+            var user = UserActions.GetUserByEmailForLogin(Email);
+            if (user is null)
+            {
+                Reader.ReadKeyToContinue();
+                continue;
+            }
+                
+            IsSuccess = ValidateUserPassword(user, Password);
             Reader.ReadKeyToContinue();
-        } while(!isSuccess);
+        } while(!IsSuccess);
     }
 
-    public bool ValidateUserPassword(string email, string password)
+    public bool ValidateUserPassword(Users user, string password)
     {
-        //TODO: fetch user eamil and password from database
-        string userPass = "userpass";
-        bool isSuccess = password == userPass;
-        if(isSuccess) 
-            Console.WriteLine("\nLogin successful!");
-        else
-            Console.WriteLine("\nLogin failed!");
+        
+        bool isSuccess = password == user.Password;
+        if(!isSuccess)
+        {
+            Console.WriteLine("\nLogin failed, try again!");
+            return false;
+        }
+        
+        user.IsLogged = true;
+        UserActions.UpdateUser(user, user.Id);
+        Console.WriteLine("\nLogin successful!");
         return isSuccess;
     }
 }
