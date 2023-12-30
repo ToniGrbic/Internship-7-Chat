@@ -46,17 +46,13 @@ public static class UserActions
             Console.WriteLine($"User with email {email} does not exist!");
         return user!;
     }
-
-
     public static void UpdateUser(Users user, int id)
     {
         var responseResult = _userRepository.Update(user, id);
-        if(responseResult == ResponseResultType.Success)
+        if (responseResult == ResponseResultType.Success)
             Console.WriteLine($"Changes saved!\n");
         else
             Console.WriteLine("Failed to update, no changes saved!\n");
-
-        Reader.ReadKeyToContinue();
     }
 
 }
