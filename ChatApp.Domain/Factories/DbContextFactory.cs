@@ -12,7 +12,7 @@ public static class DbContextFactory
     public static ChatAppDbContext GetChatAppDbContext()
     {
         var config = new ConfigurationBuilder()
-            .SetBasePath("C:\\Users\\Toni\\source\\repos\\Internship-7-Chat\\ChatApp.Data")
+            .SetBasePath(FindProjectRoot(AppContext.BaseDirectory))
             .AddXmlFile("App.config")
             .Build();
 
@@ -25,5 +25,24 @@ public static class DbContextFactory
             .Options;
 
         return new ChatAppDbContext(options);
+    }
+
+    public static string FindProjectRoot(string basePath)
+    {
+        // Move up the directory hierarchy until you find the project root
+        while (!File.Exists(Path.Combine(basePath, "App.config")))
+        {
+            string parentDirectory = Directory.GetParent(basePath)!.FullName;
+
+            // If the parent directory is null, break the loop to avoid an infinite loop
+            if (parentDirectory == null)
+            {
+                throw new InvalidOperationException("Unable to find project root directory.");
+            }
+
+            basePath = parentDirectory;
+        }
+
+        return basePath;
     }
 }
