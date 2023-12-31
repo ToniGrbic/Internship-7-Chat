@@ -15,7 +15,7 @@ using ChatApp.Presentation.Actions.UserActions;
             Console.WriteLine("Register:\n");
             do{
                 Email = Reader.ReadEmail("Email: ");
-            }while(UserActions.GetUserByEmailForRegister(Email) is not null);
+            }while(UsersActions.GetUserByEmailForRegister(Email) is not null);
             
             UserName = Reader.ReadInput("Username: ");
             do{
@@ -25,7 +25,7 @@ using ChatApp.Presentation.Actions.UserActions;
             } while(!IsSuccess);
 
             CreateAndConfirmCaptchaString();
-            UserActions.RegisterUser(Email, UserName, Password);
+            UsersActions.RegisterUser(Email, UserName, Password);
         }
 
         public void ConfirmUserPassword(string password, string confirmPassword)
