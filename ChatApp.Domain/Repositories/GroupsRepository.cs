@@ -17,22 +17,16 @@ public class GroupsRepository : BaseRepository
         return SaveChanges();
     }
 
-    public ResponseResultType AddUserToGroup(int userId, int groupId)
+    public List<Groups>? GetAllUnjoinedGroups(Users user)
     {
-        var group = DbContext.Groups.Find(groupId);
-        if (group is null)
-        {
-            return ResponseResultType.NotFound;
-        }
+        var groups = DbContext.Groups
+                          .Where(g => !g.GroupUsers.Any(gu => gu.UserId == user.Id))
+                          .ToList();
 
-        var groupUser = new GroupUsers
-        {
-            UserId = userId,
-            GroupId = groupId
-        };
-        DbContext.GroupUsers.Add(groupUser);
+        if (groups == null)
+            return null;
 
-        return SaveChanges();
+        return groups;
     }
 
 

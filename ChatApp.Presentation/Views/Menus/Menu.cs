@@ -5,11 +5,19 @@ public class Menu
     private int SelectedOption = 0;
     private string MenuName = null!;
     private bool ExitMenu = false;
+    public bool DeleteOptionOnEnter = false;
 
     public Menu(string menuName, List<(string, Action)> options)
     {
         MenuName = menuName;
         Options = options;
+    }
+
+    public Menu(string menuName, List<(string, Action)> options, bool deleteoptionOnEnter)
+    {
+        MenuName = menuName;
+        Options = options;
+        DeleteOptionOnEnter = deleteoptionOnEnter;
     }
 
     public void Start()
@@ -21,6 +29,7 @@ public class Menu
             PrintMenu();
         }
     }
+
     public void PrintMenu()
     {
         Console.Clear();
@@ -64,7 +73,9 @@ public class Menu
         else if (key.Key == ConsoleKey.Enter)
         {
             Options[SelectedOption].Item2.Invoke();
-            if (SelectedOption == Options.Count - 1)
+            if (DeleteOptionOnEnter)
+                Options.RemoveAt(SelectedOption);
+            if (SelectedOption == 0)
                 ExitMenu = true;
         }
         return SelectedOption;

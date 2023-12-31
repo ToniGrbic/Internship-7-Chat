@@ -21,7 +21,7 @@ public class Login
             Email = Reader.ReadEmail("Email: ");
             Password = Reader.ReadInput("Password: ");
 
-            var user = UserActions.GetUserByEmailForLogin(Email);
+            var user = UsersActions.GetUserByEmailForLogin(Email);
             if (user is null)
             {
                 Reader.ReadKeyToContinue();
@@ -42,18 +42,18 @@ public class Login
 
             var appActions = new List<(string, Action)>()
             {
+                ("Logout", 
+                 () => LogoutUser(user)),
                 ("Group chats",
                  () => new Menu("Group chats", groupChatOptions).Start()),
                 ("Private Messages", 
                  () => new Menu("Private messages", privateMessageOptions).Start()),
                 ("Settings", 
-                 () => new Menu("Settings", userSettings).Start()),
-                ("Logout", 
-                 () => LogoutUser(user))
+                 () => new Menu("Settings", userSettings).Start())
             };
 
             if (user.IsAdmin)
-                appActions.Insert(0, ("User managment", () => Console.WriteLine("TODO")));
+                appActions.Insert(1, ("User managment", () => Console.WriteLine("TODO")));
 
             var userMenu = new Menu($"User menu - {user.UserName}", appActions);
             userMenu.Start();
@@ -70,7 +70,7 @@ public class Login
         }
         
         user.IsLogged = true;
-        UserActions.UpdateUser(user, user.Id);
+        UsersActions.UpdateUser(user, user.Id);
         Console.WriteLine("\nLogin successful!");
         return isSuccess;
     }
@@ -78,7 +78,7 @@ public class Login
     public void LogoutUser(Users user)
     {
         user.IsLogged = false;
-        UserActions.UpdateUser(user, user.Id);
+        UsersActions.UpdateUser(user, user.Id);
         Console.WriteLine("\nLogout successful!");
     }
 }

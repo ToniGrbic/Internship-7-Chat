@@ -11,9 +11,11 @@ namespace ChatApp.Presentation.Views.Menus
     
     public class MenuOptions
     {
-        public Users? User { get; set; }
+        public Users User { get; set; }
 
-        public MenuOptions(Users? user)
+        
+
+        public MenuOptions(Users user)
         {
             User = user;
         }
@@ -22,10 +24,10 @@ namespace ChatApp.Presentation.Views.Menus
         {
             var options = new List<(string, Action)>()
             {
-                ("Create group chat", () => Console.WriteLine("TODO")),
-                ("Join group chat", () => Console.WriteLine("TODO")),
+                ("Back to previous menu", () => Console.WriteLine("TODO")),
+                ("Create group chat", () => GroupChatsMenu.CreateGroupChat(User)),
+                ("Join group chat", () => GroupChatsMenu.JoinGroupChat(User)),
                 ("Print all group chats", () => Console.WriteLine("TODO")),
-                ("Back to previous menu", () => Console.WriteLine("TODO"))
             };
 
             return options;
@@ -35,9 +37,10 @@ namespace ChatApp.Presentation.Views.Menus
         {
             var options = new List<(string, Action)>()
             {
+                ("Back to previous menu", () => Console.WriteLine("TODO")),
                 ("Send private message", () => Console.WriteLine("TODO")),
                 ("Print all private messages", () => Console.WriteLine("TODO")),
-                ("Back to previous menu", () => Console.WriteLine("TODO"))
+                
             };
 
             return options;
@@ -47,9 +50,10 @@ namespace ChatApp.Presentation.Views.Menus
         {
             var options = new List<(string, Action)>()
             {
+                ("Back to previous menu", () => Console.WriteLine("TODO")),
                 ("Change password", () => Console.WriteLine("TODO")),
                 ("Change email", () => Console.WriteLine("TODO")),
-                ("Back to previous menu", () => Console.WriteLine("TODO"))
+                
             };
 
             return options;

@@ -5,7 +5,7 @@ using ChatApp.Presentation.Helpers;
 using ChatApp.Data.Entities.Models;
 namespace ChatApp.Presentation.Actions.UserActions;
 
-public static class UserActions
+public static class UsersActions
 {
     private static UsersRepository _userRepository = RepositoryFactory.Create<UsersRepository>();
     public static void RegisterUser(string email, string userName, string password)
