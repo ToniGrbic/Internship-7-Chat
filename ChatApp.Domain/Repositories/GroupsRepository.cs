@@ -29,6 +29,18 @@ public class GroupsRepository : BaseRepository
         return groups;
     }
 
+    public List<Groups>? GetAllJoinedGroups(Users user)
+    {
+        var groups = DbContext.Groups
+                          .Where(g => g.GroupUsers.Any(gu => gu.UserId == user.Id))
+                          .ToList();
+
+        if (groups == null)
+            return null;
+
+        return groups;
+    }
+
 
 }
 
