@@ -33,15 +33,15 @@ namespace ChatApp.Data.Migrations
                     b.Property<int>("GroupID")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("MessageDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("MessageText")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("SenderUserID")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("SentDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
