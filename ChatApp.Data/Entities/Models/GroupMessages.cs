@@ -12,7 +12,7 @@ namespace ChatApp.Data.Entities.Models
             GroupID = groupID;
             SenderUserID = senderUserID;
             MessageText = messageText;
-            MessageDate = DateTime.Now;
+            SentDate = DateTime.Now;
         }
         
         public int Id { get; set; }
@@ -27,6 +27,6 @@ namespace ChatApp.Data.Entities.Models
 
         public string MessageText { get; set; }
 
-        public DateTime MessageDate { get; set; }
+        public DateTime SentDate { get; set; }
     }
 }
