@@ -31,9 +31,16 @@ namespace ChatApp.Presentation.Actions
             return groups!;
         }
 
-        public static void PrintAllUserGroupChats()
+        public static List<Groups>? GetJoinedGroups(Users user)
         {
-            Console.WriteLine("TODO");
+            var groups = _groupsRepository.GetAllJoinedGroups(user);
+            if (groups == null)
+            {
+                Console.WriteLine("No group chats found!");
+                return null;
+            }
+            return groups!;
         }
+
     }
 }
