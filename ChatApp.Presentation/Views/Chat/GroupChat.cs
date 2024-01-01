@@ -8,16 +8,14 @@ namespace ChatApp.Presentation.Views.Chat
     public class GroupChat
     {
         public Users User { get; set; }
-
         public List<GroupMessages>? Messages { get; set; }
-
         public Groups Group { get; set; }
+
         public GroupChat(Users user, Groups group)
         {
             User = user;
             Group = group;
             Messages = GetMessages(group.Id);
-            
         }
 
         public void Display()
@@ -35,7 +33,6 @@ namespace ChatApp.Presentation.Views.Chat
                 Messages = GetMessages(Group.Id);
                 
             } while (true);
-            
         }
 
         public void PrintMessages()
@@ -46,23 +43,26 @@ namespace ChatApp.Presentation.Views.Chat
                 return;
             }
                 
-
             Console.WriteLine($"Group chat - {Group.GroupName}");
             Console.WriteLine("Messages:\n");
             foreach (var message in Messages)
             {
+                Console.WriteLine(
+                    "*******************************"
+                );
                 if(message.SenderUserID == User.Id)
                     Console.Write($"YOU - {message.SentDate}: \n");
                 else
                     Console.Write($"{message.SenderUser.UserName}#{message.SenderUserID} - {message.SentDate}: \n");
-                
+
+                var formatedMessage = Writer.AddLineBreaksToMessage(message.MessageText, 31);
                 Console.WriteLine(
-                    $"*******************************\n" +
-                    $"{message.MessageText}\n"
+                    $"{formatedMessage}\n" +
+                    $"*******************************\n"
                 );
             }
             Console.WriteLine("*************************************************");
-            Console.WriteLine("\nType /exit to go back\n");
+            Console.WriteLine("Type '/exit' to go back\n");
         }
 
         public List<GroupMessages>? GetMessages(int groupId)
