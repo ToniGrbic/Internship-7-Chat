@@ -13,8 +13,6 @@ namespace ChatApp.Presentation.Views.Menus
     {
         public Users User { get; set; }
 
-        
-
         public MenuOptions(Users user)
         {
             User = user;
@@ -24,7 +22,7 @@ namespace ChatApp.Presentation.Views.Menus
         {
             var options = new List<(string, Action)>()
             {
-                ("Back to previous menu", () => Console.WriteLine("TODO")),
+                ("Back to previous menu", () => Console.Clear()),
                 ("Create group chat", () => GroupChatsMenu.CreateGroupChat(User)),
                 ("Join group chat", () => GroupChatsMenu.JoinGroupChatMenu(User)),
                 ("Print all group chats", () => GroupChatsMenu.PrintAllGroupChatsMenu(User)),
@@ -37,7 +35,7 @@ namespace ChatApp.Presentation.Views.Menus
         {
             var options = new List<(string, Action)>()
             {
-                ("Back to previous menu", () => Console.WriteLine("TODO")),
+                ("Back to previous menu", () => Console.Clear()),
                 ("Send private message", () => Console.WriteLine("TODO")),
                 ("Print all private messages", () => Console.WriteLine("TODO")),
                 
@@ -50,7 +48,7 @@ namespace ChatApp.Presentation.Views.Menus
         {
             var options = new List<(string, Action)>()
             {
-                ("Back to previous menu", () => Console.WriteLine("TODO")),
+                ("Back to previous menu", () => Console.Clear()),
                 ("Change password", () => Console.WriteLine("TODO")),
                 ("Change email", () => Console.WriteLine("TODO")),
                 
