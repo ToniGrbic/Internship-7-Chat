@@ -11,7 +11,7 @@ namespace ChatApp.Data.Entities.Models
         {
             GroupID = groupID;
             SenderUserID = senderUserID;
-            MessageText = messageText;
+            MessageText = messageText;  
             SentDate = DateTime.Now;
         }
         

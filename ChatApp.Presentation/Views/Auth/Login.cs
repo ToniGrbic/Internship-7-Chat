@@ -9,6 +9,7 @@ using ChatApp.Data.Entities.Models;
 public class Login
 {
     private string Email { get; set; }
+    
     private string Password { get; set; }
 
     private bool IsSuccess = false;

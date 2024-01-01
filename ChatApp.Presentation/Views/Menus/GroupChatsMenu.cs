@@ -1,7 +1,7 @@
 ﻿using ChatApp.Data.Entities.Models;
 using ChatApp.Presentation.Helpers;
 using ChatApp.Presentation.Actions;
-using System.Transactions;
+using ChatApp.Presentation.Views.Chat;
 
 namespace ChatApp.Presentation.Views.Menus
 {
@@ -42,7 +42,7 @@ namespace ChatApp.Presentation.Views.Menus
             {
                 foreach (var group in joinedGroups)
                 {
-                    (string, Action) row = (group!.GroupName, () => EnterGroupChat(user));
+                    (string, Action) row = (group!.GroupName, () => EnterGroupChat(user, group));
                     GroupChatsItems.Add(row);
                 }
             }
@@ -59,9 +59,10 @@ namespace ChatApp.Presentation.Views.Menus
             Reader.ReadKeyToContinue();
         }
 
-        public static void EnterGroupChat(Users user)
+        public static void EnterGroupChat(Users user, Groups group)
         {
-            Console.WriteLine("TODO");
+            var groupChat = new GroupChat(user, group);
+            groupChat.Display();
         }
 
 
