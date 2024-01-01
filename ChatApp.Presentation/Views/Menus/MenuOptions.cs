@@ -26,8 +26,8 @@ namespace ChatApp.Presentation.Views.Menus
             {
                 ("Back to previous menu", () => Console.WriteLine("TODO")),
                 ("Create group chat", () => GroupChatsMenu.CreateGroupChat(User)),
-                ("Join group chat", () => GroupChatsMenu.JoinGroupChat(User)),
-                ("Print all group chats", () => Console.WriteLine("TODO")),
+                ("Join group chat", () => GroupChatsMenu.JoinGroupChatMenu(User)),
+                ("Print all group chats", () => GroupChatsMenu.PrintAllGroupChatsMenu(User)),
             };
 
             return options;
