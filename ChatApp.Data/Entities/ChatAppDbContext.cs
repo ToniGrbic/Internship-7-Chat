@@ -10,6 +10,7 @@ public class ChatAppDbContext : DbContext
 {
     public ChatAppDbContext(DbContextOptions options) : base(options)
     {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 
     public DbSet<Groups> Groups => Set<Groups>();
