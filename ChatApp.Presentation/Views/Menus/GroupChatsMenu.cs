@@ -28,10 +28,10 @@ namespace ChatApp.Presentation.Views.Menus
                 }
             }
             JoinGroupItems.Insert(0, ("Back to previous menu", () => Console.Clear()));    
-            
             var JoinGroupMenu = new Menu("Enter to join a group: ", JoinGroupItems, true);
             JoinGroupMenu.Start();
         }
+
         public static void PrintAllGroupChatsMenu(Users user)
         {
             Console.Clear();
@@ -49,7 +49,6 @@ namespace ChatApp.Presentation.Views.Menus
             GroupChatsItems.Insert(0, ("Back to previous menu", () => Console.Clear()));
             var GroupChatsMenu = new Menu("Enter to join chat: ", GroupChatsItems);
             GroupChatsMenu.Start();
-
         }
 
         public static void AddUserToGroupChat(int userId, int groupId)
@@ -64,7 +63,5 @@ namespace ChatApp.Presentation.Views.Menus
             var groupChat = new GroupChat(user, group);
             groupChat.Display();
         }
-
-
     }
 }
