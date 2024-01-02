@@ -46,7 +46,11 @@ public class UsersRepository : BaseRepository
     }
 
     public Users? GetByEmail(string email) => DbContext.Users.FirstOrDefault(u => u.Email == email);
-    public ICollection<Users> GetAll() => DbContext.Users.ToList();
+    public List<Users>? GetAllWithoutLogedInUser(Users user){
+        return DbContext.Users
+                    .Where(u => u.Id != user.Id)    
+                    .ToList();
+    }
 
     
 }
