@@ -6,7 +6,7 @@ namespace ChatApp.Presentation.Views.Menus
     public class MenuOptions
     {
         public Users User { get; set; }
-
+        public static (string, Action) BackOption = ("Back to previous menu", () => Console.Clear());
         public MenuOptions(Users user)
         {
             User = user;
@@ -16,7 +16,7 @@ namespace ChatApp.Presentation.Views.Menus
         {
             var options = new List<(string, Action)>()
             {
-                ("Back to previous menu", () => Console.Clear()),
+                BackOption,
                 ("Create group chat", () => GroupChatsMenu.CreateGroupChat(User)),
                 ("Join group chat", () => GroupChatsMenu.JoinGroupChatMenu(User)),
                 ("Print all group chats", () => GroupChatsMenu.PrintAllGroupChatsMenu(User)),
@@ -29,9 +29,9 @@ namespace ChatApp.Presentation.Views.Menus
         {
             var options = new List<(string, Action)>()
             {
-                ("Back to previous menu", () => Console.Clear()),
+                BackOption,
                 ("Send private message", () => PrivateChatsMenu.NewPrivateMessage(User)),
-                ("Print all private chats", () => Console.WriteLine("TODO")),
+                ("Print recent private chats", () => PrivateChatsMenu.PrintRecentPrivateChats(User)),
             };
 
             return options;
@@ -41,7 +41,7 @@ namespace ChatApp.Presentation.Views.Menus
         {
             var options = new List<(string, Action)>()
             {
-                ("Back to previous menu", () => Console.Clear()),
+                BackOption,
                 ("Change password", () => Console.WriteLine("TODO")),
                 ("Change email", () => Console.WriteLine("TODO")),
                 
