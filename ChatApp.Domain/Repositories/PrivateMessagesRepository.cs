@@ -1,6 +1,7 @@
 using ChatApp.Data.Entities.Models;
 using ChatApp.Data.Entities;
 using ChatApp.Domain.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChatApp.Domain.Repositories;
 
@@ -29,7 +30,9 @@ public class PrivateMessagesRepository : BaseRepository
     public List<PrivateMessages>? GetAll(int senderId, int receiverId)
     {
         var privateMessages = DbContext.PrivateMessages
-            .Where(pm => pm.SenderUserID == senderId && pm.ReceiverUserID == receiverId)
+            .Include(pm => pm.SenderUser)
+            .Where(pm => (pm.SenderUserID == senderId && pm.ReceiverUserID == receiverId) 
+                      || (pm.SenderUserID == receiverId && pm.ReceiverUserID == senderId))
             .OrderBy(pm => pm.SentDate)
             .ToList();
 
