@@ -3,7 +3,7 @@ using ChatApp.Domain.Repositories;
 using ChatApp.Domain.Factories;
 using ChatApp.Presentation.Helpers;
 using ChatApp.Data.Entities.Models;
-namespace ChatApp.Presentation.Actions.UserActions;
+namespace ChatApp.Presentation.Actions;
 
 public static class UsersActions
 {
@@ -53,6 +53,17 @@ public static class UsersActions
             Console.WriteLine($"Changes saved!\n");
         else
             Console.WriteLine("Failed to update, no changes saved!\n");
+    }
+
+    public static List<Users>? GetAllUsers(Users user)
+    {
+        var users = _userRepository.GetAllWithoutLogedInUser(user);
+        if(users == null)
+        {
+            Console.WriteLine("No users!");
+            return null;
+        }
+        return users;
     }
 
 }
