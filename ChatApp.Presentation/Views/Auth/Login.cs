@@ -1,7 +1,7 @@
 
 namespace ChatApp.Presentation.Views.Auth;
 
-using ChatApp.Presentation.Actions.UserActions;
+using ChatApp.Presentation.Actions;
 using ChatApp.Presentation.Helpers;
 using ChatApp.Presentation.Views.Menus;
 using ChatApp.Data.Entities.Models;

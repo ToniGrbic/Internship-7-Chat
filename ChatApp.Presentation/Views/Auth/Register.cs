@@ -1,6 +1,6 @@
 namespace ChatApp.Presentation.Views.Auth;
 using ChatApp.Presentation.Helpers;
-using ChatApp.Presentation.Actions.UserActions;
+using ChatApp.Presentation.Actions;
     public class Register
     {
         private string Email { get; set; }
