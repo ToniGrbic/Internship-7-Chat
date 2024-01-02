@@ -36,9 +36,8 @@ namespace ChatApp.Presentation.Views.Menus
             var options = new List<(string, Action)>()
             {
                 ("Back to previous menu", () => Console.Clear()),
-                ("Send private message", () => Console.WriteLine("TODO")),
-                ("Print all private messages", () => Console.WriteLine("TODO")),
-                
+                ("Send private message", () => PrivateChatsMenu.NewPrivateMessage(User)),
+                ("Print all private chats", () => Console.WriteLine("TODO")),
             };
 
             return options;
