@@ -1,7 +1,7 @@
 
 namespace ChatApp.Data.Entities.Models
 {
-    public class PrivateMessages
+    public class PrivateMessages : IMessages
     {
         public PrivateMessages(int senderUserID, int receiverUserID, string messageText)
         {

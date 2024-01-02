@@ -1,6 +1,7 @@
 namespace ChatApp.Presentation.Helpers;
 using ChatApp.Data.Entities.Models;
 
+
 public static class Writer
 {
     public static void PrintUserInfo(Users user)
@@ -11,6 +12,30 @@ public static class Writer
             $"Is admin: {user.IsAdmin}\n" +
             $"Is logged in: {user.IsLogged}\n"
         );
+    }
+
+    public static void PrintMessages<T,U>(List<T> Messages, Users SenderUser) where T : IMessages
+    {
+        foreach (var message in Messages)
+        {
+            Console.WriteLine(
+                "*********************************"
+            );
+            if (message.SenderUserID == SenderUser.Id)
+                Console.Write($"YOU - {message.SentDate}: \n");
+
+            else
+                Console.Write($"{message.SenderUser.UserName}#{message.SenderUserID} - {message.SentDate}: \n");
+
+            Console.WriteLine("---------------------------------");
+            var formatedMessage = AddLineBreaksToMessage(message.MessageText, 32);
+            Console.WriteLine(
+                $"{formatedMessage}\n" +
+                $"*********************************\n"
+            );
+        }
+        Console.WriteLine("*************************************************");
+        Console.WriteLine("Type '/exit' to go back\n");
     }
 
     public static string AddLineBreaksToMessage(string message, int maxCharactersPerLine)
@@ -47,4 +72,5 @@ public static class Writer
         formattedMessage = formattedMessage.TrimEnd();
         return formattedMessage;
     }
+
 }

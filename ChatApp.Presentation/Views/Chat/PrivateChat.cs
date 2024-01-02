@@ -24,7 +24,7 @@ namespace ChatApp.Presentation.Views.Chat
             string inputMessageText;
             do{
                 Console.Clear();
-                PrintMessages();
+                PrintChat();
                 inputMessageText = Reader.ReadInput("Input message: ");
                 if(inputMessageText == "/exit")
                     break;
@@ -34,7 +34,7 @@ namespace ChatApp.Presentation.Views.Chat
             } while (true);
         }
 
-        public void PrintMessages()
+        public void PrintChat()
         {
             if(Messages == null)
             {
@@ -42,24 +42,13 @@ namespace ChatApp.Presentation.Views.Chat
                 return;
             }
                 
-            Console.WriteLine($"Private chat - {ReceiverUser!.UserName}#{ReceiverUser!.Id}");
-            Console.WriteLine("Messages:\n");
-            foreach (var message in Messages)
-            {
-                Console.WriteLine(
-                    "*******************************"
-                );
-                if(message.SenderUserID == SenderUser!.Id)
-                    Console.Write($"YOU - {message.SentDate}: \n");
-                else
-                    Console.Write($"{ReceiverUser.UserName}#{message.SenderUserID} - {message.SentDate}: \n");
-
-                var formatedMessage = Writer.AddLineBreaksToMessage(message.MessageText, 31);
-                Console.WriteLine(
-                    $"{formatedMessage}\n" +
-                    $"*******************************\n"
-                );
-            }
+            Console.WriteLine(
+                $"PRIVATE CHAT - {ReceiverUser!.UserName}#{ReceiverUser!.Id}\n" +
+                "MESSAGES:\n" +
+                "*************************************************\n"
+            );
+            
+            Writer.PrintMessages<PrivateMessages, IMessages>(Messages, SenderUser!);
         }
         public List<PrivateMessages>? GetMessages(int senderUserId, int receiverUserId)
         {

@@ -1,7 +1,7 @@
 
 namespace ChatApp.Data.Entities.Models
 {
-    public class GroupMessages
+    public class GroupMessages : IMessages
     {
         public GroupMessages(int groupID, int senderUserID, string messageText)
         {

@@ -6,13 +6,13 @@ namespace ChatApp.Presentation.Views.Chat
 {
     public class GroupChat
     {
-        public Users User { get; set; }
+        public Users SenderUser { get; set; }
         public List<GroupMessages>? Messages { get; set; }
         public Groups Group { get; set; }
 
         public GroupChat(Users user, Groups group)
         {
-            User = user;
+            SenderUser = user;
             Group = group;
             Messages = GetMessages(group.Id);
         }
@@ -22,17 +22,17 @@ namespace ChatApp.Presentation.Views.Chat
             string inputMessageText;
             do{
                 Console.Clear();
-                PrintMessages();
+                PrintChat();
                 inputMessageText = Reader.ReadInput("Input message: ");
                 if(inputMessageText == "/exit")
                     break;
 
-                GroupMessagesActions.CreateAndAddGroupMessage(User.Id, Group.Id, inputMessageText);
+                GroupMessagesActions.CreateAndAddGroupMessage(SenderUser.Id, Group.Id, inputMessageText);
                 Messages = GetMessages(Group.Id);
             } while (true);
         }
 
-        public void PrintMessages()
+        public void PrintChat()
         {
             if(Messages == null)
             {
@@ -40,34 +40,18 @@ namespace ChatApp.Presentation.Views.Chat
                 return;
             }
                 
-            Console.WriteLine($"Group chat - {Group.GroupName}");
-            Console.WriteLine("Messages:\n");
-            foreach (var message in Messages)
-            {
-                Console.WriteLine(
-                    "*******************************"
-                );
-                if(message.SenderUserID == User.Id)
-                    Console.Write($"YOU - {message.SentDate}: \n");
-                else
-                    Console.Write($"{message.SenderUser.UserName}#{message.SenderUserID} - {message.SentDate}: \n");
+            Console.WriteLine(
+                $"GROUP CHAT - {Group.GroupName}"+
+                "MESSAGES:\n" +
+                "*************************************************\n"
+            );
 
-                var formatedMessage = Writer.AddLineBreaksToMessage(message.MessageText, 31);
-                Console.WriteLine(
-                    $"{formatedMessage}\n" +
-                    $"*******************************\n"
-                );
-            }
-            Console.WriteLine("*************************************************");
-            Console.WriteLine("Type '/exit' to go back\n");
+            Writer.PrintMessages<GroupMessages, IMessages>(Messages, SenderUser);
         }
 
         public List<GroupMessages>? GetMessages(int groupId)
         {
             var messages = GroupMessagesActions.GetAllGroupMessages(groupId);
-            if(messages == null)
-                return null;
-
             return messages;
         }
     }
