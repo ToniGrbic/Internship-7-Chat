@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ChatApp.Data.Entities.Models
 {
@@ -12,7 +8,7 @@ namespace ChatApp.Data.Entities.Models
             SenderUserID = senderUserID;
             ReceiverUserID = receiverUserID;
             MessageText = messageText;
-            MessageDate = DateTime.Now;
+            SentDate = DateTime.Now;
         }
 
         public int Id { get; set; }
@@ -27,7 +23,7 @@ namespace ChatApp.Data.Entities.Models
 
         public string MessageText { get; set; }
 
-        public DateTime MessageDate { get; set; }
+        public DateTime SentDate { get; set; }
 
     }
 }
