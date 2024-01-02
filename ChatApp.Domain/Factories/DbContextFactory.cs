@@ -1,9 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 using ChatApp.Data.Entities;
 using Microsoft.Extensions.Configuration;
-using ChatApp.Data.Entities.Models;
-using System;
 
 namespace ChatApp.Domain.Factories;
 
@@ -32,14 +29,8 @@ public static class DbContextFactory
         // Move up the directory hierarchy until you find the project root
         while (!File.Exists(Path.Combine(basePath, "App.config")))
         {
-            string parentDirectory = Directory.GetParent(basePath)!.FullName;
-
-            // If the parent directory is null, break the loop to avoid an infinite loop
-            if (parentDirectory == null)
-            {
-                throw new InvalidOperationException("Unable to find project root directory.");
-            }
-
+            string parentDirectory = Directory.GetParent(basePath)!.FullName 
+                ?? throw new InvalidOperationException("Unable to find project root directory.");
             basePath = parentDirectory;
         }
 

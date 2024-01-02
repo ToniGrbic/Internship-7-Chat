@@ -1,5 +1,4 @@
 using ChatApp.Data.Entities.Models;
-using ChatApp.Data.Entities;
 using ChatApp.Domain.Enums;
 using ChatApp.Domain.Repositories;
 using ChatApp.Domain.Factories;

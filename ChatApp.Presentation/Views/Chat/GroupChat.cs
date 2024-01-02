@@ -16,7 +16,7 @@ namespace ChatApp.Presentation.Views.Chat
             Group = group;
             Messages = GetMessages(group.Id);
         }
-
+        
         public void Display()
         {
             string inputMessageText;

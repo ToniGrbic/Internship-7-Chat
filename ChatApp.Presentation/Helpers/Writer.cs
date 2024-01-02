@@ -1,7 +1,6 @@
 namespace ChatApp.Presentation.Helpers;
 using ChatApp.Data.Entities.Models;
 
-
 public static class Writer
 {
     public static void PrintUserInfo(Users user)
