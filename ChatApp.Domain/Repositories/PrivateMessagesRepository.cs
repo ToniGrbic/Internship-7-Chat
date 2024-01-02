@@ -8,7 +8,6 @@ public class PrivateMessagesRepository : BaseRepository
 {
     public PrivateMessagesRepository(ChatAppDbContext dbContext) : base(dbContext)
     {
-
     }
 
     public ResponseResultType Add(int senderId, int receiverId, string messageText)
@@ -20,19 +19,14 @@ public class PrivateMessagesRepository : BaseRepository
             return ResponseResultType.NotFound;
         }
 
-        var privateMessage = new PrivateMessages
-        {
-            SenderUserID = senderId,
-            ReceiverUserID = receiverId,
-            MessageText = messageText,
-            SentDate = DateTime.Now
-        };
+        var privateMessage = new PrivateMessages(senderId, receiverId, messageText);
+        
         DbContext.PrivateMessages.Add(privateMessage);
 
         return SaveChanges();
     }
 
-    public List<PrivateMessages> GetAll(int senderId, int receiverId)
+    public List<PrivateMessages>? GetAll(int senderId, int receiverId)
     {
         var privateMessages = DbContext.PrivateMessages
             .Where(pm => pm.SenderUserID == senderId && pm.ReceiverUserID == receiverId)
