@@ -1,6 +1,5 @@
 ﻿using ChatApp.Data.Entities.Models;
 using ChatApp.Presentation.Helpers;
-using ChatApp.Domain.Repositories;
 using ChatApp.Presentation.Actions;
 
 namespace ChatApp.Presentation.Views.Chat
@@ -21,8 +20,7 @@ namespace ChatApp.Presentation.Views.Chat
         public void Display()
         {
             string inputMessageText;
-            do
-            {
+            do{
                 Console.Clear();
                 PrintMessages();
                 inputMessageText = Reader.ReadInput("Input message: ");
@@ -31,7 +29,6 @@ namespace ChatApp.Presentation.Views.Chat
 
                 GroupMessagesActions.CreateAndAddGroupMessage(User.Id, Group.Id, inputMessageText);
                 Messages = GetMessages(Group.Id);
-                
             } while (true);
         }
 
