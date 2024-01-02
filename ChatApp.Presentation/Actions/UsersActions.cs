@@ -60,7 +60,18 @@ public static class UsersActions
         var users = _userRepository.GetAllWithoutLogedInUser(user);
         if(users == null)
         {
-            Console.WriteLine("No users!");
+            Console.WriteLine("No users found!");
+            return null;
+        }
+        return users;
+    }
+
+    public static List<Users>? GetRecentUserPrivateChats(int userId)
+    {
+        var users = _userRepository.GetRecentUserChats(userId);
+        if(users == null)
+        {
+            Console.WriteLine("No users found!");
             return null;
         }
         return users;

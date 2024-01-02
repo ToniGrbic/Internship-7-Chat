@@ -1,7 +1,9 @@
 
+using System.Security.Cryptography;
 using ChatApp.Data.Entities;
 using ChatApp.Data.Entities.Models;
 using ChatApp.Domain.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChatApp.Domain.Repositories;
 
@@ -50,6 +52,19 @@ public class UsersRepository : BaseRepository
         return DbContext.Users
                     .Where(u => u.Id != user.Id)    
                     .ToList();
+    }
+
+    public List<Users>? GetRecentUserChats(int userId)
+    {
+        var recentPrivateChats = DbContext.PrivateMessages
+                                .Where(pm => pm.ReceiverUserID == userId || pm.SenderUserID == userId)
+                                .Select(pm => pm.ReceiverUser)
+                                .Distinct()
+                                .Where(u => u.Id != userId)
+                                .OrderByDescending(u => u.PrivateMessagesSent.OrderByDescending(pm => pm.SentDate).FirstOrDefault()!.SentDate)
+                                .ToList();
+
+        return recentPrivateChats;
     }
 
     

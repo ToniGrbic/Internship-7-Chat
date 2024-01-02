@@ -10,7 +10,7 @@ namespace ChatApp.Presentation.Views.Menus
         {
             List<(string, Action)> NewPrivateMessageItems = new()
             {
-                ("Back to previous menu", () => Console.Clear())
+                MenuOptions.BackOption
             };
 
             var users = UsersActions.GetAllUsers(logedInUser);
@@ -26,7 +26,28 @@ namespace ChatApp.Presentation.Views.Menus
 
             var NewPrivateMessageMenu = new Menu("Enter to start private chat with user: ", NewPrivateMessageItems);
             NewPrivateMessageMenu.Start();
+        }
+
+        public static void PrintRecentPrivateChats(Users logedInUser)
+        {
+            List<(string, Action)> RecentPrivateChatsItems = new()
+            {
+                MenuOptions.BackOption
+            };
+
+            var recentPrivateChats = UsersActions.GetRecentUserPrivateChats(logedInUser.Id);
             
+            if(recentPrivateChats != null)
+            {
+                foreach (var user in recentPrivateChats)
+                {
+                    (string, Action) row = ($"{user!.UserName}#{user!.Id}", () => EnterPrivateChat(logedInUser, user));
+                    RecentPrivateChatsItems.Add(row);
+                }
+            }
+
+            var RecentPrivateChatsMenu = new Menu("Enter to start private chat with user: ", RecentPrivateChatsItems);
+            RecentPrivateChatsMenu.Start();
         }
 
         public static void EnterPrivateChat(Users logedInUser, Users receiverUser)
