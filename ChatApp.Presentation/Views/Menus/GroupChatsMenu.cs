@@ -17,7 +17,11 @@ namespace ChatApp.Presentation.Views.Menus
 
         public static void JoinGroupChatMenu(Users user)
         {   
-            List<(string, Action)> JoinGroupItems = new();
+            List<(string, Action)> JoinGroupItems = new()
+            {
+                ("Back to previous menu", () => Console.Clear())
+            };
+        
             var groups = GroupsActions.GetUnjoinedGroups(user);
             if(groups != null)
             {
@@ -27,7 +31,7 @@ namespace ChatApp.Presentation.Views.Menus
                     JoinGroupItems.Add(row);
                 }
             }
-            JoinGroupItems.Insert(0, ("Back to previous menu", () => Console.Clear()));    
+            
             var JoinGroupMenu = new Menu("Enter to join a group: ", JoinGroupItems, true);
             JoinGroupMenu.Start();
         }
