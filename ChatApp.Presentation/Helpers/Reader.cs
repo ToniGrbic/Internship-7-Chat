@@ -1,19 +1,23 @@
+ 
  namespace ChatApp.Presentation.Helpers;
  using System.Net.Mail;
- public static class Reader
+using System.Text.RegularExpressions;
+
+public static class Reader
  {
 
     public static bool ValidateEmail(string email)
-    {
-        var isVaild = true;
-        try{
-            var addr = new MailAddress(email);
-        }
-        catch{
-            isVaild = false;
+     {
+        string emailRegex = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]{1,}@([a-zA-Z0-9-]{2,}\.)+[a-zA-Z]{3,}$";
+        var match = Regex.Match(email, emailRegex);
+        
+        if (match.Success)
+            return true;
+        else
+        {
             Console.WriteLine("Invalid email format! Try again.");
+            return false;
         }
-        return isVaild;    
     }
 
     public static string ReadEmail(string message)
