@@ -52,6 +52,21 @@ namespace ChatApp.Presentation.Views.Menus
             AllUsersMenu.Start();
         }
 
+        public static void PromoteUserToAdmin(Users adminUser, Users user)
+        {
+            Console.Clear();
+            Writer.PrintUserInfo(user);
+            var ConfirmPromoteUser = Reader.ReadInput(
+                $"Are you sure you want to promote this user to admin? (enter Y/y to confirm):\n"
+            );
+            if(ConfirmPromoteUser.ToLower() == "y")
+            {
+                user.IsAdmin = true;
+                UsersActions.UpdateUser(user, user.Id);
+                UpdatePrintAllUsersMenu(adminUser);
+            }
+        }
+
         public static void DeleteUserOption(Users adminUser, Users user)
         {
             Console.Clear();
@@ -62,11 +77,9 @@ namespace ChatApp.Presentation.Views.Menus
             if(ConfirmDeleteUser.ToLower() == "y")
             {
                 UsersActions.DeleteUser(adminUser, user.Id);
+                //Fix bug with this method
                 //RemoveUserManageMenuOfDeletedUser(user);
-                AllUsersMenu!.DeleteMenu();
-                AllUsersMenu = null;
-                Reader.ReadKeyToContinue();
-                PrintAllUsersMenu(adminUser);
+                UpdatePrintAllUsersMenu(adminUser);
             }
         }
     	
@@ -79,5 +92,12 @@ namespace ChatApp.Presentation.Views.Menus
             deletedUserManageMenu.DeleteMenu();
         }
 
+        public static void UpdatePrintAllUsersMenu(Users adminUser)
+        {
+            AllUsersMenu!.DeleteMenu();
+            AllUsersMenu = null;
+            Reader.ReadKeyToContinue();
+            PrintAllUsersMenu(adminUser);
+        }
     }
 }
