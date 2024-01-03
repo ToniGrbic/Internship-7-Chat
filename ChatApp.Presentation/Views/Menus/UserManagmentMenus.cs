@@ -58,12 +58,15 @@ namespace ChatApp.Presentation.Views.Menus
             var ConfirmPromoteUser = Reader.ReadInput(
                 $"Are you sure you want to promote this user to admin? (enter Y/y to confirm):\n"
             );
-            if(ConfirmPromoteUser.ToLower() == "y")
-            {
-                user.IsAdmin = true;
-                UsersActions.UpdateUser(user);
-                UpdatePrintAllUsersMenu(adminUser);
+            if(ConfirmPromoteUser.ToLower() != "y"){
+                Console.WriteLine("Promote user canceled!");
+                Reader.ReadKeyToContinue();
+                return;
             }
+            
+            user.IsAdmin = true;
+            UsersActions.UpdateUser(user);
+            UpdatePrintAllUsersMenu(adminUser);
         }
 
         public static void ChangeUserEmail(Users adminUser, Users user)
@@ -73,7 +76,14 @@ namespace ChatApp.Presentation.Views.Menus
             var newEmail = Reader.ReadEmail(
                 $"Enter new email for user {user.UserName}:\n"
             );
-            
+             var ConfirmEmailChange = Reader.ReadInput(
+                $"Are you sure you want to change user email to {newEmail}? (enter Y/y to confirm):\n"
+            );
+            if(ConfirmEmailChange.ToLower() != "y"){
+                Console.WriteLine("Promote user canceled!");
+                Reader.ReadKeyToContinue();
+                return;
+            }
             user.Email = newEmail;
             UsersActions.UpdateUser(user);
             UpdatePrintAllUsersMenu(adminUser);
@@ -86,12 +96,17 @@ namespace ChatApp.Presentation.Views.Menus
             var ConfirmDeleteUser = Reader.ReadInput(
                 $"Are you sure you want to delete this user? (enter Y/y to confirm):\n"
             );
-            if(ConfirmDeleteUser.ToLower() == "y")
+            if(ConfirmDeleteUser.ToLower() != "y")
             {
-                UsersActions.DeleteUser(adminUser, user.Id);
-                RemoveUserManageMenuOfDeletedUser(user);
-                UpdatePrintAllUsersMenu(adminUser);
+                Console.WriteLine("Delete user canceled!");
+                Reader.ReadKeyToContinue();
+                return;
             }
+            
+            UsersActions.DeleteUser(adminUser, user.Id);
+            RemoveUserManageMenuOfDeletedUser(user);
+            UpdatePrintAllUsersMenu(adminUser);
+            
         }
     	
         public static void RemoveUserManageMenuOfDeletedUser(Users deletedUser)

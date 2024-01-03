@@ -42,11 +42,9 @@ namespace ChatApp.Presentation.Views.Menus
             var options = new List<(string, Action)>()
             {
                 BackOption,
-                ("Change password", () => Console.WriteLine("TODO")),
-                ("Change email", () => Console.WriteLine("TODO")),
-                
+                ("Change password", () => UserSettingsMenu.ChangePasswordOption(User)),
+                ("Change email", () => UserSettingsMenu.ChangeEmailOption(User)),
             };
-
             return options;
         }
 
