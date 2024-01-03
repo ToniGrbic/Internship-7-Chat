@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+
 using ChatApp.Data.Entities.Models;
 using ChatApp.Presentation.Actions;
 using ChatApp.Presentation.Helpers;
@@ -27,7 +27,6 @@ namespace ChatApp.Presentation.Views.Menus
                 var emailPadding = users.Max(u => u.Email!.Length) + CoulmnPadding;
                 var RolePadding = "Admin".Length + CoulmnPadding;
 
-
                 foreach (var user in users)
                 {
                     var userName = user.UserName!.PadRight(userNamePadding);
@@ -39,7 +38,7 @@ namespace ChatApp.Presentation.Views.Menus
                     (string, Action) row = (
                         $"{userName}{email}{role}", 
                         () => {
-                            var userManageMenu = new Menu("Manage user options: ", manageUserOptions);
+                            var userManageMenu = new Menu($"Manage user {user.Email}: ", manageUserOptions);
                             UserManagmentMenusList.Add((email.Trim(), userManageMenu));
                             userManageMenu.Start();
                         }
@@ -67,6 +66,19 @@ namespace ChatApp.Presentation.Views.Menus
             }
         }
 
+        public static void ChangeUserEmail(Users adminUser, Users user)
+        {
+            Console.Clear();
+            Writer.PrintUserInfo(user);
+            var newEmail = Reader.ReadEmail(
+                $"Enter new email for user {user.UserName}:\n"
+            );
+            
+            user.Email = newEmail;
+            UsersActions.UpdateUser(user, user.Id);
+            UpdatePrintAllUsersMenu(adminUser);
+        }
+
         public static void DeleteUserOption(Users adminUser, Users user)
         {
             Console.Clear();
@@ -77,7 +89,6 @@ namespace ChatApp.Presentation.Views.Menus
             if(ConfirmDeleteUser.ToLower() == "y")
             {
                 UsersActions.DeleteUser(adminUser, user.Id);
-                //Fix bug with this method
                 RemoveUserManageMenuOfDeletedUser(user);
                 UpdatePrintAllUsersMenu(adminUser);
             }
@@ -85,9 +96,7 @@ namespace ChatApp.Presentation.Views.Menus
     	
         public static void RemoveUserManageMenuOfDeletedUser(Users deletedUser)
         {
-            //TODO: fix Object reference not set to an instance of an object
             Menu deletedUserManageMenu = UserManagmentMenusList.Find(m => m.Item1 == deletedUser.Email).Item2;
-            //Console.WriteLine(UserManagmentMenusList.ToString());
             UserManagmentMenusList.Remove((deletedUser.Email, deletedUserManageMenu));
             deletedUserManageMenu.DeleteMenu();
         }

@@ -56,9 +56,8 @@ namespace ChatApp.Presentation.Views.Menus
             {
                 BackOption,
                 ("Delete user", () => UserManagmentMenus.DeleteUserOption(adminUser, User)),
-                ("Change user email", () => Console.WriteLine("TODO")),
-                ("Promote user to admin", () => UserManagmentMenus.PromoteUserToAdmin(adminUser, User)),
-                
+                ("Change user email", () => UserManagmentMenus.ChangeUserEmail(adminUser, User)),
+                ("Promote user to admin", () => UserManagmentMenus.PromoteUserToAdmin(adminUser, User))
             };
 
             return options;
