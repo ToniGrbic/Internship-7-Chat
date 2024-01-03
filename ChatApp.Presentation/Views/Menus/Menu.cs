@@ -1,9 +1,9 @@
 namespace ChatApp.Presentation.Views.Menus;
 public class Menu
 {
-    private List<(string, Action)> Options;
+    public List<(string, Action)> Options;
     private int SelectedOption = 0;
-    private string MenuName = null!;
+    public string MenuName = null!;
     private bool ExitMenu = false;
     public bool DeleteOptionOnEnter = false;
 
@@ -13,11 +13,11 @@ public class Menu
         Options = options;
     }
 
-    public Menu(string menuName, List<(string, Action)> options, bool deleteoptionOnEnter)
+    public Menu(string menuName, List<(string, Action)> options, bool deleteOptionOnEnter)
     {
         MenuName = menuName;
         Options = options;
-        DeleteOptionOnEnter = deleteoptionOnEnter;
+        DeleteOptionOnEnter = deleteOptionOnEnter;
     }
 
     public void Start()
@@ -78,6 +78,14 @@ public class Menu
             if (SelectedOption == 0)
                 ExitMenu = true;
         }
+
+        if(key.Key == ConsoleKey.Q)
+            ExitMenu = true;
         return SelectedOption;
+    }
+
+    public void DeleteMenu()
+    {
+        ExitMenu = true;
     }
 }
