@@ -5,9 +5,11 @@ using ChatApp.Presentation.Helpers;
 
 Console.WriteLine(
     "Welcome to ChatApp!\n" +
-    "--------------------------------------------------\n" +
-    "Navigate the menu options using up/down arrow keys\n" +
-    "and press enter to select an option.\n"
+    "--------------------------------------------------------------------\n" +
+    "-> Navigate the menu options using UP/DOWN arrow keys\n" +
+    "-> To select a menu option press ENTER.\n" +
+    "-> To go back to the previous menu press Q or back option in menu\n" +
+    "--------------------------------------------------------------------\n"
 );
 
 Reader.ReadKeyToContinue();
