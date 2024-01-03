@@ -4,6 +4,7 @@ namespace ChatApp.Presentation.Views.Menus
 {
     public static class UserManagmentMenus
     {
+        public static readonly int CoulmnPadding = 5;
         public static void PrintAllUsersMenu(Users adminUser)
         {
             Console.Clear();
@@ -17,9 +18,10 @@ namespace ChatApp.Presentation.Views.Menus
             
             if(users != null)
             {
-                var userNamePadding = users.Max(u => u.UserName!.Length) + 5;
-                var emailPadding = users.Max(u => u.Email!.Length) + 5;
-                var isAdminPadding = users.Max(u => u.IsAdmin!.ToString().Length) + 5;
+                //find max lenght of prop items for padding
+                var userNamePadding = users.Max(u => u.UserName!.Length) + CoulmnPadding;
+                var emailPadding = users.Max(u => u.Email!.Length) + CoulmnPadding;
+                var isAdminPadding = users.Max(u => u.IsAdmin!.ToString().Length) + CoulmnPadding;
 
                 foreach (var user in users)
                 {
