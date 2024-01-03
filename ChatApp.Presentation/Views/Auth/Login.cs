@@ -75,7 +75,7 @@ public class Login
         }
         
         user.IsLogged = true;
-        UsersActions.UpdateUser(user, user.Id);
+        UsersActions.UpdateUser(user);
         Console.WriteLine("\nLogin successful!");
         return isSuccess;
     }
@@ -83,7 +83,7 @@ public class Login
     public void LogoutUser(Users user)
     {
         user.IsLogged = false;
-        UsersActions.UpdateUser(user, user.Id);
+        UsersActions.UpdateUser(user);
         Console.WriteLine("\nLogout successful!");
     }
 }

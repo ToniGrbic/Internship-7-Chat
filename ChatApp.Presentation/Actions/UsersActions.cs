@@ -56,9 +56,9 @@ public static class UsersActions
             Console.WriteLine($"User with email {email} does not exist!");
         return user!;
     }
-    public static void UpdateUser(Users user, int id)
+    public static void UpdateUser(Users user)
     {
-        var responseResult = _userRepository.Update(user, id);
+        var responseResult = _userRepository.Update(user);
         if (responseResult == ResponseResultType.Success)
             Console.WriteLine($"Changes saved!\n");
         else

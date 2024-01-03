@@ -61,7 +61,7 @@ namespace ChatApp.Presentation.Views.Menus
             if(ConfirmPromoteUser.ToLower() == "y")
             {
                 user.IsAdmin = true;
-                UsersActions.UpdateUser(user, user.Id);
+                UsersActions.UpdateUser(user);
                 UpdatePrintAllUsersMenu(adminUser);
             }
         }
@@ -75,7 +75,7 @@ namespace ChatApp.Presentation.Views.Menus
             );
             
             user.Email = newEmail;
-            UsersActions.UpdateUser(user, user.Id);
+            UsersActions.UpdateUser(user);
             UpdatePrintAllUsersMenu(adminUser);
         }
 

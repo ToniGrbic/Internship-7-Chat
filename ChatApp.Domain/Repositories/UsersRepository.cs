@@ -33,17 +33,16 @@ public class UsersRepository : BaseRepository
         return SaveChanges();
     }
 
-    public ResponseResultType Update(Users user, int id)
+    public ResponseResultType Update(Users user)
     {
-        var userToUpdate = DbContext.Users.Find(id);
+        var userToUpdate = DbContext.Users.Find(user.Id);
         if (userToUpdate is null)
         {
             return ResponseResultType.NotFound;
         }
-
-        userToUpdate.Email = user.Email;
-        userToUpdate.UserName = user.UserName;
-
+        
+        DbContext.Update(user);
+        
         return SaveChanges();
     }
 
