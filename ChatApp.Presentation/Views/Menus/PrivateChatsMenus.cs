@@ -4,7 +4,7 @@ using ChatApp.Presentation.Views.Chat;
 
 namespace ChatApp.Presentation.Views.Menus
 {
-    public static class PrivateChatsMenu
+    public static class PrivateChatsMenus
     {
         public static void NewPrivateMessage(Users logedInUser)
         {

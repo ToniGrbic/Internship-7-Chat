@@ -5,7 +5,7 @@ using ChatApp.Presentation.Views.Chat;
 
 namespace ChatApp.Presentation.Views.Menus
 {
-    public static class GroupChatsMenu
+    public static class GroupChatsMenus
     {
         public static void CreateGroupChat(Users user)
         {

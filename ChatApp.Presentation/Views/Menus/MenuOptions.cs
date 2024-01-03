@@ -17,9 +17,9 @@ namespace ChatApp.Presentation.Views.Menus
             var options = new List<(string, Action)>()
             {
                 BackOption,
-                ("Create group chat", () => GroupChatsMenu.CreateGroupChat(User)),
-                ("Join group chat", () => GroupChatsMenu.JoinGroupChatMenu(User)),
-                ("Print all group chats", () => GroupChatsMenu.PrintAllGroupChatsMenu(User)),
+                ("Create group chat", () => GroupChatsMenus.CreateGroupChat(User)),
+                ("Join group chat", () => GroupChatsMenus.JoinGroupChatMenu(User)),
+                ("Print all group chats", () => GroupChatsMenus.PrintAllGroupChatsMenu(User)),
             };
 
             return options;
@@ -30,8 +30,8 @@ namespace ChatApp.Presentation.Views.Menus
             var options = new List<(string, Action)>()
             {
                 BackOption,
-                ("Send private message", () => PrivateChatsMenu.NewPrivateMessage(User)),
-                ("Print recent private chats", () => PrivateChatsMenu.PrintRecentPrivateChats(User)),
+                ("Send private message", () => PrivateChatsMenus.NewPrivateMessage(User)),
+                ("Print recent private chats", () => PrivateChatsMenus.PrintRecentPrivateChats(User)),
             };
 
             return options;
@@ -50,7 +50,7 @@ namespace ChatApp.Presentation.Views.Menus
             return options;
         }
 
-        public List<(string, Action)> ManageUserOptions(Users user)
+        public List<(string, Action)> ManageUserOptions()
         {
             var options = new List<(string, Action)>()
             {
