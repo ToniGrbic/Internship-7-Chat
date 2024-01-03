@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using ChatApp.Data.Entities.Models;
-//using ChatApp.Data.Seeds;
+using ChatApp.Data.Seeds;
 
 namespace ChatApp.Data.Entities;
 
@@ -60,7 +60,7 @@ public class ChatAppDbContext : DbContext
             .WithMany(u => u.PrivateMessagesReceived)
             .HasForeignKey(pm => pm.ReceiverUserID);
 
-        //DatabaseSeeder.Seed(modelBuilder);
+        DatabaseSeeder.Seed(modelBuilder);
         base.OnModelCreating(modelBuilder);
     }
 }

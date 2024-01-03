@@ -1,4 +1,6 @@
 
+using Microsoft.EntityFrameworkCore;
+
 namespace ChatApp.Data.Entities.Models
 {
     public class Users
