@@ -35,7 +35,7 @@ public class Menu
         Console.Clear();
         Console.WriteLine(
             $"ChatApp - {MenuName}\n" +
-            "--------------------\n"
+            "-------------------------------------------------------\n"
         );
 
         for (int i = 0; i < Options.Count; ++i)
@@ -44,11 +44,11 @@ public class Menu
             {
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.White;
-                Console.WriteLine($"--> {i + 1}. {Options[i].Item1}");
+                Console.WriteLine($"--> {i}. {Options[i].Item1}");
                 Console.ResetColor();
             }
             else
-                Console.WriteLine($"    {i + 1}. {Options[i].Item1}");
+                Console.WriteLine($"    {i}. {Options[i].Item1}");
         }
     }
 
