@@ -50,5 +50,18 @@ namespace ChatApp.Presentation.Views.Menus
             return options;
         }
 
+        public List<(string, Action)> ManageUserOptions(Users user)
+        {
+            var options = new List<(string, Action)>()
+            {
+                BackOption,
+                ("Delete user", () => Console.WriteLine("TODO")),
+                ("Change user email", () => Console.WriteLine("TODO")),
+                ("Promote user to admin", () => Console.WriteLine("TODO"))
+            };
+
+            return options;
+        }
+
     }
 }
