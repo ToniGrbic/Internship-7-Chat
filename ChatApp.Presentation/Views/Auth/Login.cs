@@ -54,7 +54,10 @@ public class Login
             };
 
             if (user.IsAdmin)
-                appActions.Insert(1, ("User managment", () => Console.Clear()));
+                appActions.Insert(1, (
+                    "User managment", 
+                    () => UserManagmentMenus.PrintAllUsersMenu(user)
+                ));
 
             var userMenu = new Menu($"User menu - {user.UserName}#{user.Id}", appActions);
             Console.Clear();
