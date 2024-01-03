@@ -40,7 +40,7 @@ namespace ChatApp.Presentation.Views.Menus
                         $"{userName}{email}{role}", 
                         () => {
                             var userManageMenu = new Menu("Manage user options: ", manageUserOptions);
-                            UserManagmentMenusList.Add((email, userManageMenu));
+                            UserManagmentMenusList.Add((email.Trim(), userManageMenu));
                             userManageMenu.Start();
                         }
                     );
@@ -78,7 +78,7 @@ namespace ChatApp.Presentation.Views.Menus
             {
                 UsersActions.DeleteUser(adminUser, user.Id);
                 //Fix bug with this method
-                //RemoveUserManageMenuOfDeletedUser(user);
+                RemoveUserManageMenuOfDeletedUser(user);
                 UpdatePrintAllUsersMenu(adminUser);
             }
         }
