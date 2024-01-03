@@ -20,15 +20,25 @@ public static class UsersActions
          Reader.ReadKeyToContinue();
     }
 
-    public static void DeleteUser(int id)
+    public static void DeleteUser(Users adminUser, int userId)
     {
-        var responseResult = _userRepository.Delete(id);
+        if(!adminUser.IsAdmin){
+            Console.WriteLine("You are not an admin, delete action is not prohibited\n");
+            return;
+        }
+        
+        var user = _userRepository.GetById(userId);
+        if(user is null)
+        {
+            Console.WriteLine($"User with id {userId} does not exist!");
+            return;
+        }
+        
+        var responseResult = _userRepository.Delete(userId);
         if(responseResult == ResponseResultType.Success)
-            Console.WriteLine($"User with id {id} deleted successfully!\n");
+            Console.WriteLine($"User with id {userId} deleted successfully!\n");
         else
             Console.WriteLine("Failed to delete user, no changes saved!");
-
-        Reader.ReadKeyToContinue();
     }
 
     public static Users? GetUserByEmailForRegister(string email)

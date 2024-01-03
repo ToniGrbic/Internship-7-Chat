@@ -48,6 +48,7 @@ public class UsersRepository : BaseRepository
     }
 
     public Users? GetByEmail(string email) => DbContext.Users.FirstOrDefault(u => u.Email == email);
+    public Users? GetById(int id) => DbContext.Users.FirstOrDefault(u => u.Id == id);
     public List<Users>? GetAllWithoutLogedInUser(Users user){
         return DbContext.Users
                     .Where(u => u.Id != user.Id)    
