@@ -6,10 +6,11 @@ public static class Writer
     public static void PrintUserInfo(Users user)
     {
         Console.WriteLine(
-            $"User: {user.UserName}\n" +
+            $"Id: {user.Id}\n" +
+            $"Username: {user.UserName}\n" +
             $"Email: {user.Email}\n" +
-            $"Is admin: {user.IsAdmin}\n" +
-            $"Is logged in: {user.IsLogged}\n"
+            $"Role: {(user.IsAdmin ? "Admin" : "User")}\n" +
+            $"Status: {(user.IsLogged ? "Online" : "Offline")}\n"
         );
     }
 
