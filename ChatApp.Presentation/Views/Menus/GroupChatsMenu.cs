@@ -40,7 +40,10 @@ namespace ChatApp.Presentation.Views.Menus
         {
             Console.Clear();
 
-            List<(string, Action)> GroupChatsItems = new();
+            List<(string, Action)> GroupChatsItems = new()
+            {
+                MenuOptions.BackOption
+            };
 
             var joinedGroups = GroupsActions.GetJoinedGroups(user);
             if(joinedGroups != null)
@@ -51,7 +54,6 @@ namespace ChatApp.Presentation.Views.Menus
                     GroupChatsItems.Add(row);
                 }
             }
-            GroupChatsItems.Add(MenuOptions.BackOption);
             
             var GroupChatsMenu = new Menu("Enter to join chat: ", GroupChatsItems);
             GroupChatsMenu.Start();
