@@ -3,6 +3,11 @@ namespace ChatApp.Data.Entities.Models
 {
     public class GroupMessages : IMessages
     {
+        public GroupMessages(string messageText)
+        {
+            MessageText = messageText;
+            SentDate = DateTime.Now;
+        }
         public GroupMessages(int groupID, int senderUserID, string messageText)
         {
             GroupID = groupID;

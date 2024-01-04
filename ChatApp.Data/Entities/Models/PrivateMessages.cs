@@ -3,6 +3,11 @@ namespace ChatApp.Data.Entities.Models
 {
     public class PrivateMessages : IMessages
     {
+        public PrivateMessages(string messageText)
+        {
+            MessageText = messageText;
+            SentDate = DateTime.Now;
+        }
         public PrivateMessages(int senderUserID, int receiverUserID, string messageText)
         {
             SenderUserID = senderUserID;
