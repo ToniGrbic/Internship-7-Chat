@@ -44,11 +44,11 @@ public class Menu
             {
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.White;
-                Console.WriteLine($"--> {i}. {Options[i].Item1}");
+                Console.WriteLine($"--> {Options[i].Item1}");
                 Console.ResetColor();
             }
             else
-                Console.WriteLine($"    {i}. {Options[i].Item1}");
+                Console.WriteLine($"    {Options[i].Item1}");
         }
     }
 

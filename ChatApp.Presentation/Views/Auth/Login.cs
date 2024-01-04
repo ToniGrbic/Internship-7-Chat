@@ -23,8 +23,11 @@ public class Login
             Password = Reader.ReadInput("Password: ");
 
             var user = UsersActions.GetUserByEmailForLogin(Email);
+            Console.Clear();
+
             if (user is null)
             {
+                Timeout.SetTimeout(30, "Login failed, User with specified email not exist!");
                 Reader.ReadKeyToContinue();
                 continue;
             }
@@ -32,6 +35,7 @@ public class Login
             IsSuccess = ValidateUserPassword(user, Password);
             if (!IsSuccess)
             {
+                Timeout.SetTimeout(30, "Login failed, Incorect password!");
                 Reader.ReadKeyToContinue();
                 continue;
             }
@@ -79,8 +83,7 @@ public class Login
         Console.WriteLine("\nLogin successful!");
         return isSuccess;
     }
-
-    public void LogoutUser(Users user)
+    public static void LogoutUser(Users user)
     {
         user.IsLogged = false;
         UsersActions.UpdateUser(user);
