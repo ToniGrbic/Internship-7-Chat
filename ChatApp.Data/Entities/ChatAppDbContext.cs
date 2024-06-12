@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+
 using ChatApp.Data.Entities.Models;
 using ChatApp.Data.Seeds;
-
 namespace ChatApp.Data.Entities;
 
 public class ChatAppDbContext : DbContext
@@ -70,7 +70,7 @@ public class ChatAppDbContextFactory : IDesignTimeDbContextFactory<ChatAppDbCont
     public ChatAppDbContext CreateDbContext(string[] args)
     {
         var config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
+            .SetBasePath(FindProjectRoot(AppContext.BaseDirectory))
             .AddXmlFile("App.config")
             .Build();
 
@@ -83,5 +83,18 @@ public class ChatAppDbContextFactory : IDesignTimeDbContextFactory<ChatAppDbCont
             .Options;
 
         return new ChatAppDbContext(options);
+    }
+
+    public static string FindProjectRoot(string basePath)
+    {
+        // Move up the directory hierarchy until you find the project root
+        while (!File.Exists(Path.Combine(basePath, "App.config")))
+        {
+            string parentDirectory = Directory.GetParent(basePath)!.FullName 
+                ?? throw new InvalidOperationException("Unable to find project root directory.");
+            basePath = parentDirectory;
+        }
+
+        return basePath;
     }
 }
